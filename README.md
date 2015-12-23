@@ -2,7 +2,7 @@
 
 Yleisiä linkkejä:
 
-* [Linkki sovellukseeni](https://vnissila.users.helsinki.fi/logistix)
+* [Linkki sovellukseeni](vnissila.users.cs.helsinki.fi/logistix/)
 * [Linkki dokumentaatiooni](https://github.com/tihig/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
 
 ## Rahtikirjojenkäsittely sivusto
