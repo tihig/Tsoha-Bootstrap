@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Tee uusi kuljetustilaus</h1>
+  <p>Lomake ei vielä toimi...</p>
+  
+ <form role="form"  action="{{base_path}}/waybill" method="POST">
+ <!--   <br>
+    <div class="form-group">
+           <div>
+              <label>Lähettäjä</label>
+              <select name="customer_id" class="form-control">
+                  {% for id,customer in customers %}
+                    <option value="{{customer.id}}">{{customer.name}}</option>
+                  {% endfor %}
+                </select>
+            </div>-->
+ <!-- Twigin for-loopissa onkelmia -->
+     <div class="form-group">
+           <div>
+              <label>Lähettäjä</label>
+              <select name="customer_id" class="form-control">
+                  {% for customer in customer_list %}
+                    <option value="{{customer.id}}">{{customer.name}}</option>
+                    {% else %}
+                    <option value="">no customers found</option>
+                  {% endfor %}
+                </select>
+    </div>
+     </div>
+    <!--- Joku valintalistaus tähän -->
+     <div class="form-group">
+           <div>
+              <label>Vastaanottaja</label>
+              <select name="customer_id" class="form-control">
+                  {% for receiver in receivers %}
+                    <option value="{{receiver.id}}">{{receiver.name}}</option>
+                     {% else %}
+                    <option value="">no receivers found</option>
+                  {% endfor %}
+                </select>
+    </div>
+     </div>
+    
+    <!-- Lisää tuotteita tilaukseen -->
+      <div class="form-group">
+           <div>
+              <label>Vastaanottaja</label>
+              <select name="customer_id" class="form-control">
+                  {% for unit in units %}
+                    <option value="{{receiver.id}}">{{receiver.name}}</option>
+                     {% else %}
+                    <option value="">no units found</option>
+                  {% endfor %}
+                </select>
+    </div>
+     </div>
+   <div class="form-group">
+      <a href="{{base_path}}/unit/new" class="btn btn-success">Uusi tuote</a>
+    </div>
+    
+     <div class="form-group">
+      <label>Määrä</label>
+      <input name="amount" class="form-control" type="number">
+    </div>
+    
+     <div class="form-group">
+      <label>Saapumispvm</label>
+      <input name="arrived" class="form-control" type="date">
+    </div>
+    
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+  </form>
+{% endblock %}

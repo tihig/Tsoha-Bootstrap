@@ -3,6 +3,7 @@
 $routes->get('/info', function() {
     HelloWorldController::info();
   });
+  
 
 $routes->get('/kuljetukset/auto/vaihda', function() {
     HelloWorldController::car_change();
@@ -15,21 +16,39 @@ $routes->get('/kuljetukset/auto', function() {
 $routes->get('/kuljetukset', function() {
     HelloWorldController::transport();
   });
-
-$routes->get('/rahtikirjat/lisaa', function() {
-    HelloWorldController::waybill_add();
+  
+  $routes->get('/waybill/search', function() {
+   WaybillController::search();
   });
 
-$routes->get('/rahtikirjat/m', function() {
-    HelloWorldController::waybill_modify();
+ $routes->get('/waybill/found/:id', function($id) {
+   WaybillController::find($id);
+  });
+  
+ $routes->post('/waybill', function(){
+   WaybillController::store();
   });
 
-$routes->get('/rahtikirjat/1', function() {
-    HelloWorldController::waybill_show();
+$routes->get('/waybill/new', function() {
+   WaybillController::create();
   });
-
- $routes->get('/rahtikirjat', function() {
-    HelloWorldController::waybill_list();
+  
+// Näyttää yhden rahtikirjan ID:n mukaan
+  $routes->get('/waybill/:id', function($id) {
+   WaybillController::show($id);
+  });
+  
+  $routes->get('/receiver', function() {
+     ReceiverController::index();
+  });
+  // Listaa kaikki rahtikirjat
+ $routes->get('/customer', function() {
+    CustomerController::index();
+  });
+  
+// Listaa kaikki rahtikirjat
+ $routes->get('/waybill', function() {
+    WaybillController::index();
   });
 
   $routes->get('/', function() {

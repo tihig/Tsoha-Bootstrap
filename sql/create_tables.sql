@@ -12,8 +12,6 @@ CREATE TABLE Receiver(
  id SERIAL PRIMARY KEY,
  name varchar(50) NOT NULL,
  address varchar(60) NOT NULL,
- post_code INTEGER NOT NULL,
- city varchar(50) NOT NULL,
  phone INTEGER NOT NULL,
  e_mail varchar(50)
 );
@@ -41,7 +39,7 @@ CREATE TABLE Waybill(
  customer_id INTEGER REFERENCES Customer(id),
  receiver_id INTEGER REFERENCES Receiver(id),
  amount INTEGER,
- ordered TIMESTAMP,
+ ordered DATE,
  arrived DATE
 );
 

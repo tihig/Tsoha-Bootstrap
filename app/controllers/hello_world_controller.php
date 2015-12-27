@@ -1,5 +1,5 @@
 <?php
-
+//require 'app/models/unit.php';
   class HelloWorldController extends BaseController{
    
    public static function info(){
@@ -49,6 +49,8 @@
 
     public static function sandbox(){
       // Testaa koodiasi täällä
-      View::make('helloworld.html');
+      $waybills = waybill::all();
+
+      Kint::dump($waybills);
     }
   }
