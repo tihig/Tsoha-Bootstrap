@@ -18,12 +18,9 @@ class WaybillController extends BaseController{
     View::make('waybill/search.html');
   }
   //Ei toimi :(((
- public static function listCustomers(){
-    $customers = customer::all();
-    View::make('waybill/new.html', array('customer_list' => $customers));
-  }
   public static function create(){
-    View::make('waybill/new.html');
+    $customers = customer::all();
+    View::make('waybill/new.html', array('customer' => $customers));
   }
   public static function store(){
     $params = $_POST;
@@ -40,6 +37,11 @@ class WaybillController extends BaseController{
     $waybill->save();
 
     Redirect::to('/waybill/' . $waybill->id, array('message' => 'Uusi tilaus on tallennettu!'));
+  }
+  
+   public static function listCustomers(){
+    $customers = customer::all();
+    View::make('/customer/index.html', array('customer' => $customers));
   }
 }
 

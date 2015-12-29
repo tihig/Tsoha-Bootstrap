@@ -25,11 +25,11 @@ $routes->get('/kuljetukset', function() {
    WaybillController::find($id);
   });
   
- $routes->post('/waybill', function(){
+  $routes->post('/waybill', function(){
    WaybillController::store();
   });
-
-$routes->get('/waybill/new', function() {
+  
+  $routes->get('/waybill/new', function() {
    WaybillController::create();
   });
   
@@ -50,7 +50,7 @@ $routes->get('/waybill/new', function() {
  $routes->get('/waybill', function() {
     WaybillController::index();
   });
-
+  
   $routes->get('/', function() {
     HelloWorldController::index();
   });
