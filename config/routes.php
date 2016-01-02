@@ -4,17 +4,16 @@ $routes->get('/info', function() {
     HelloWorldController::info();
   });
   
-
-$routes->get('/kuljetukset/auto/vaihda', function() {
-    HelloWorldController::car_change();
+  $routes->get('waybill/edit', function($id){
+  WaybillController::edit($id);
   });
-
-$routes->get('/kuljetukset/auto', function() {
-    HelloWorldController::car_view();
+  
+   $routes->get('/waybill/:id/edit', function($id){
+  WaybillController::update($id);
   });
-
-$routes->get('/kuljetukset', function() {
-    HelloWorldController::transport();
+  
+   $routes->get('/waybill/:id/destroy', function($id){
+  WaybillController::destroy($id);
   });
   
   $routes->get('/waybill/search', function() {
@@ -29,12 +28,30 @@ $routes->get('/kuljetukset', function() {
    WaybillController::store();
   });
   
+
+  
+   $routes->get('/waybill/new', function() {
+   WaybillController::customers();
+  });
+  
+   /*$routes->get('/waybill/new', function() {
+        ReceiverController::receivers();
+  });*/
+  
+   $routes->get('/waybill/:id/unit', function($id) {
+   WaybillController::newUnit($id);
+  });
+  
+   $routes->get('/waybill/new', function() {
+   WaybillController::listUnits();
+  });
+  
   $routes->get('/waybill/new', function() {
    WaybillController::create();
   });
   
 // Näyttää yhden rahtikirjan ID:n mukaan
-  $routes->get('/waybill/:id', function($id) {
+  $routes->get('/waybill/:id/show', function($id) {
    WaybillController::show($id);
   });
   
@@ -49,6 +66,9 @@ $routes->get('/kuljetukset', function() {
 // Listaa kaikki rahtikirjat
  $routes->get('/waybill', function() {
     WaybillController::index();
+  });
+  $routes->get('/', function() {
+    HelloWorldController::listWaybills();
   });
   
   $routes->get('/', function() {

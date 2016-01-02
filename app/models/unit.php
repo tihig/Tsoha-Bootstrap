@@ -2,7 +2,7 @@
 
 class unit extends BaseModel{
    
-   public  $id, $productname, $weight, $velocity,$demand, $un_number, $loading_format, $info;
+   public  $id, $waybill_id, $productname, $weight, $velocity,$demand, $un_number, $loading_format, $info;
 
    public function __construct($attributes){
     parent::__construct($attributes);
@@ -17,6 +17,7 @@ class unit extends BaseModel{
     foreach($rows as $row){
       $units[] = new unit(array(
         'id' => $row['id'],
+        'waybill_id' => $row['waybill_id'],
         'productname' => $row['productname'],
         'weight' => $row['weight'],
         'velocity' => $row['velocity'],

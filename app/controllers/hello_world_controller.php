@@ -49,8 +49,12 @@
 
     public static function sandbox(){
       // Testaa koodiasi täällä
-      $waybills = waybill::all();
-
-      Kint::dump($waybills);
+      $receivers = receiver::all();
+      
+      Kint::dump($receivers);
     }
+       public static function listWaybills(){
+    $waybills = waybill::all();
+    View::make('home.html', array('waybills' => $waybills));
+  }
   }

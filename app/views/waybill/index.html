@@ -21,14 +21,14 @@
     <tbody>
       {% for waybill in waybills %}
         <tr>
-          <td><a href="{{base_path}}/waybill/{{waybill.id}}">{{waybill.id}}</td>
+          <td><a href="{{base_path}}/waybill/{{waybill.id}}/show">{{waybill.id}}</td>
           <td>{{waybill.ordered}}</td>
           <td>{{waybill.customer_id}}</td>
           <td>{{waybill.receiver_id}}</td>
           <td>{{waybill.amount}}</td>
           <td>{{waybill.arrived}}</td>
-          <td><a class="btn btn-default btn-sm" href="{{base_path}}/waybill/{{waybill.id}}/edit">Muokkaa</a></td>
-        </tr>
+          <td><a class="btn btn-danger" href="{{base_path}}/waybill/{{waybill.id}}/destroy">Poista</a></td>
+         </tr>
       {% endfor %}
     </tbody>
   </table>

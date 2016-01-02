@@ -2,8 +2,6 @@
 CREATE TABLE Customer(
  id SERIAL PRIMARY KEY,
  name varchar(50) NOT NULL,
- password varchar(50) NOT NULL,
- address varchar(60),
  phone INTEGER NOT NULL,
  e_mail varchar(50) NOT NULL
 );
@@ -24,6 +22,7 @@ CREATE TABLE Worker(
 
 CREATE TABLE Unit(
  id SERIAL PRIMARY KEY,
+ waybill_id INTEGER REFERENCES Waybill(id),
  productname varchar(50) NOT NULL,
  weight INTEGER,
  velocity INTEGER,
@@ -35,7 +34,6 @@ CREATE TABLE Unit(
 
 CREATE TABLE Waybill(
  id SERIAL PRIMARY KEY,
- unit_id INTEGER REFERENCES Unit(id),
  customer_id INTEGER REFERENCES Customer(id),
  receiver_id INTEGER REFERENCES Receiver(id),
  amount INTEGER,
