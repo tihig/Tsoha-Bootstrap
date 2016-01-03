@@ -49,9 +49,14 @@
 
     public static function sandbox(){
       // Testaa koodiasi täällä
-      $receivers = receiver::all();
+      $waybill = new waybill(array(
+      'customer_id' => 1,
+      'receiver_id'=> 2,
+       'arrived'=> 'asdafddg'
+      ));
+      $waybill->delete();
       
-      Kint::dump($receivers);
+      Kint::dump($waybill);
     }
        public static function listWaybills(){
     $waybills = waybill::all();

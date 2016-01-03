@@ -56,25 +56,33 @@ class WaybillController extends BaseController{
   public static function destroy($id){
    $waybill = new waybill(array('id'=> $id));
    
-   Kint::dump($waybill);
-   //$waybill->destroy();
+   $waybill->delete($id);
    
-   //Redirect::to('/waybill', array('message'=> 'Rahtikirjan poisto onnistui.'));
+   Redirect::to('/waybill', array('message'=> 'Rahtikirjan poisto onnistui.'));
   }
   
   public static function store(){
     $params = $_POST;
  
-    $waybill = new waybill(array(
+    $attributes = array(
         'customer_id' => $params['customer_id'],
         'receiver_id' => $params['receiver_id'],
         'arrived' => $params['arrived']
-    ));
-
-    //Kint::dump($params);
+    );
+    
+   $waybill = new waybill($attributes);
+   $errors = $waybill->errors();
+   
+   if(count($errors) == 0){
     $waybill->save();
 
-    Redirect::to('/waybill/' . $waybill->id .'/show', array('message' => 'Uusi tilaus on tallennettu!'));
+    Redirect::to('/waybill/' . $waybill->id .'/show', array('message' => 'Rahtikirja on lisätty onnistuneesti!'));
+  }else{
+    $customers = customer::all();
+    $receivers = receiver::all();
+    View::make('waybill/new.html', array('errors' => $errors, 'attributes' => $attributes, 'customers' => $customers, 'receivers' => $receivers));
+  }
+    //Kint::dump($params);
   }
   
     /*public static function receivers(){

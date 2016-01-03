@@ -15,7 +15,6 @@
         <th>Vastaanottaja:</th>
         <th>Määrä:</th>
         <th>Saapumispäivä:</th>
-        <th></th>
       </tr>
     </thead>
 
@@ -28,7 +27,6 @@
           <td>{{waybill.receiver_id}}</td>
           <td>{{waybill.amount}}</td>
           <td>{{waybill.arrived}}</td>
-          <td><a class="btn btn-default btn-sm" href="{{base_path}}/waybill/{{waybill.id}}/edit">Muokkaa</a></td>
         </tr>
       {% endfor %}
     </tbody>

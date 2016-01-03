@@ -6,7 +6,7 @@ class waybill extends BaseModel{
 
    public function __construct($attributes){
     parent::__construct($attributes);
-    $this->validators = array('validate_int');
+    $this->validators = array('validate_waybill');
    }
 
    public static function all(){
@@ -79,10 +79,12 @@ class waybill extends BaseModel{
     
     //Kint::trace();
     //Kint::dump($row);
+    
    $this->id = $row['id'];
   }
   
     public function update(){
+       // Jostaan syystä POST ei pelaa???
     $query = DB::connection()->prepare('UPDATE Waybill (customer_id, receiver_id, arrived) VALUES (:customer_id, :receiver_id, :arrived) RETURNING id');
     $query->execute(array('customer_id' => $this->customer_id, 'receiver_id' => $this->receiver_id, 'arrived' => $this->arrived));
     $row = $query->fetch();
@@ -92,14 +94,14 @@ class waybill extends BaseModel{
 //$this->id = $row['id'];
   }
   
-    public function delete(){
-    $query = DB::connection()->prepare('DELETE Waybill (customer_id, receiver_id, arrived) VALUES ( :customer_id, :receiver_id,  :arrived) RETURNING id');
-    $query->execute(array('customer_id' => $this->customer_id, 'receiver_id' => $this->receiver_id,  'arrived' => $this->arrived));
+    public function delete($id){
+    $query = DB::connection()->prepare('DELETE FROM Waybill WHERE id= :id RETURNING id');
+    $query->execute(array('id'=> $id));
     $row = $query->fetch();
     
-    Kint::trace();
+  
     Kint::dump($row);
-//$this->id = $row['id'];
+   //$this->id = $row['id'];
   }
   }
 

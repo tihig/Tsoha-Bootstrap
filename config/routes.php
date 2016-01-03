@@ -1,6 +1,15 @@
 <?php
 
-$routes->get('/info', function() {
+  $routes->get('/login', function(){
+   UserController::login();
+  });
+  
+   $routes->post('/login', function(){
+   //ei jostaan syystä login tule tänne
+   UserController::handle_login();
+  });
+
+  $routes->get('/info', function() {
     HelloWorldController::info();
   });
   
@@ -17,6 +26,8 @@ $routes->get('/info', function() {
   });
   
   $routes->get('/waybill/search', function() {
+    //Ei kysy kirjautumistietoja
+    //BaseController::check_logged_in();
    WaybillController::search();
   });
 
@@ -28,15 +39,9 @@ $routes->get('/info', function() {
    WaybillController::store();
   });
   
-
-  
    $routes->get('/waybill/new', function() {
    WaybillController::customers();
   });
-  
-   /*$routes->get('/waybill/new', function() {
-        ReceiverController::receivers();
-  });*/
   
    $routes->get('/waybill/:id/unit', function($id) {
    WaybillController::newUnit($id);
@@ -56,15 +61,21 @@ $routes->get('/info', function() {
   });
   
   $routes->get('/receiver', function() {
+     //Ei kysy kirjautumistietoja
+    //BaseController::check_logged_in();
      ReceiverController::index();
   });
   // Listaa kaikki rahtikirjat
  $routes->get('/customer', function() {
+    //Ei kysy kirjautumistietoja
+    //BaseController::check_logged_in();
     CustomerController::index();
   });
   
 // Listaa kaikki rahtikirjat
  $routes->get('/waybill', function() {
+    //Ei kysy kirjautumistietoja
+    //BaseController::check_logged_in();
     WaybillController::index();
   });
   $routes->get('/', function() {

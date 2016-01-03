@@ -19,15 +19,21 @@
     public function validate_waybill(){
        $errors = array();
        
-       $errors = $this->{validate_int}($this->customer_id);
-       $errors = $this->{validate_int}($this->receiver_id);
-       $errors = $this->{validate_int}($this->unit_id);
-       $errors = $this->{validate_int}($this->amount);
+       $errors_customer = $this->validate_number($this->customer_id);
+       $errors_receiver = $this->validate_number($this->receiver_id);
+       $errors_date = $this->validate_date($this->arrived);
        
+       $errors = array_merge($errors, $errors_customer);
+       $errors = array_merge($errors, $errors_receiver);
+       $errors = array_merge($errors, $errors_date);
+       
+       return $errors;
        
     }
+    //Tulevat jos aikaa jää
+    
     public function validate_customer(){
-       
+
     }
     public function validate_receiver(){
        
@@ -39,46 +45,58 @@
     // yleisvalidaattorit
     public function validate_empty($val){
         $errors = array();
-        if($val == '' || $$val == NULL){
-        $errors[] = 'Määrä ei voi olla nolla.';
+        if($val == '' || $val == NULL){
+        $errors[] = 'Arvon ' . $val . 'pituus ei voi olla nolla.';
      } 
      return $errors;
     }
     
-    public function validate_int($int){
-     $errors = array();
+    public function validate_number($int){
+       //Tarkistetaan onko tyhjä
+     $errors = $this->validate_empty($int);
      
-     if( is_integer($int) == FALSE){
-        $errors[] = 'Tämä ei ole integer';
+     if(is_numeric($int) == FALSE){
+        $errors[] = 'Arvo: ' . $int . ' ei ole luku!';
      }
      
      return $errors;
     }
     
      public function validate_string($string){
-        $errors = array();
+        $errors = array_merge($errors, $this->validate_empty($date));
      
         if(is_string($int) == FALSE){
-         $errors[] = 'Tämä ei ole integer';
+         $errors[] = 'Arvo ' . $string . ' ei ole merkkijono!';
         }
      
      return $errors;
     }
     
     public function validate_length($val,$length){
-      $errors = array();
+      $errors = array_merge($errors, $this->validate_empty($date));
         
      
      if(strlen($val) >= $length){
-        $errors[] = 'Tämä ei ole integer';
+        $errors[] = 'Tämä ei ole tarpeeksi pitkä!';
      }
      
      return $errors;
     }
     
     public function validate_date($date){
-        $errors = array();
-        $year = substr($date, 0, 4);
+       //Tarkistetaan onko tyhjä
+       
+        $errors = $this->validate_empty($date);
+        
+        try{   
+           $date = new DateTime($date);
+        }  catch (Exception $e){
+           
+           $errors[] = 'Arvo '. $date . ' ole aikamuodossa!';
+        }
+        
+        
+     /*   $year = substr($date, 0, 4);
         $month = substr($date, 5, 2);
         $day = substr($date, 8, 2);
      
@@ -91,9 +109,15 @@
      if(is_numeric($day) == FALSE){
         $errors[] = 'Päivä ei ole luku';
      }
-     if(checkdate($month, $day, $year)){
-        $errors[] = 'Päivämäärä ei ole oikea';
+     $year = (int) $year;
+     $month = (int) $month;
+     $day = (int) $day;
+     
+     if($month > 12 || $month < 1){
+        $errors[] = 'Kuukausi on väärä!';
      }
+  
+       */      
      return $errors;
     }
 
@@ -105,7 +129,9 @@
         $method_name = $validator;
         $validator_errors = $this->{$method_name}();
         
+        if($validator_errors != null){
         $errors = array_merge($errors, $validator_errors);
+        }
       }
 
       return $errors;
