@@ -12,3 +12,8 @@ Tuotteiden kuljettamista tarvistevat asiakkaat syöttävät sivustolle tarvittav
 Kuljetustilauksia hallinnoiva tallennushenkilö kuljetusyrityksen puolelta pystyy muokkaamaan ja tallentamaan tilauksia. Tilaukset hyväksytään tai hylätään kuljetettavaksi. Jos ne hyväksytään, tulee niistä rahtikirjoja, jolloin ne voidaan lajitella oikeille kuljettajille.
 Kuljettajat pystyvät tarkastelemaan omia kuljetuksiaan sekä merkitsemään kuljetetut rahdit sivustolle. 
 
+## Testitunnukset
+
+Käyttäjätunnus: testi
+Ss: testi123
+
