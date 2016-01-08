@@ -8,24 +8,24 @@
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
+        <th>ID:</th>
         <th>Nimi:</th>
         <th>Osoite:</th>
         <th>Puh:</th>
         <th>Email:</th>
-        <th>ID:</th>
         <th></th>
       </tr>
     </thead>
 
     <tbody>
-      {% for customer in customers %}
+      {% for receiver in receivers %}
         <tr>
-          <td><a href="{{base_path}}/customer/{{customer.id}}">{{customer.name}}</td>
-          <td>{{customer.address}}</td>
-          <td>{{customer.phone}}</td>
-          <td>{{customer.e_mail}}</td>
-          <td>{{customer.id}}</td>
-          <td><a class="btn btn-default btn-sm" href="{{base_path}}/waybill/{{waybill.id}}/edit">Muokkaa</a></td>
+          <td>{{receiver.id}}</td>
+          <td>{{receiver.name}}</td>
+          <td>{{receiver.address}}</td>
+          <td>{{receiver.phone}}</td>
+          <td>{{receiver.e_mail}}</td>
+          <td><a href="{{base_path}}/receiver/{{receiver.id}}/destroy" class="btn btn-danger" >Poista</a></td>
         </tr>
       {% endfor %}
     </tbody>

@@ -39,9 +39,26 @@
        
     }
     
-    public function validate_unit(){
+    /*public function validate_unit(){
+          $errors = array();
+       //validate_strings
+       $errors_productname = $this->validate_string($this->productname);
+       $errors_demand = $this->validate_string($this->demand);
+       $errors_loading_format = $this->validate_string($this->loading_format);
+       $errors_info = $this->validate_string($this->info);
        
-    }
+       //validate_ints
+       $errors_weight = $this->validate_int($this->weight);
+       $errors_velocity = $this->validate_int($this->velocity);
+       $errors_un_number = $this->validate_($this->loading_format);
+       
+       
+       $errors = array_merge($errors, $errors_customer);
+       $errors = array_merge($errors, $errors_receiver);
+       $errors = array_merge($errors, $errors_date);
+       
+       return $errors;
+    }*/
     // yleisvalidaattorit
     public function validate_empty($val){
         $errors = array();
@@ -65,7 +82,7 @@
      public function validate_string($string){
         $errors = array_merge($errors, $this->validate_empty($date));
      
-        if(is_string($int) == FALSE){
+        if(is_string($string) == FALSE){
          $errors[] = 'Arvo ' . $string . ' ei ole merkkijono!';
         }
      

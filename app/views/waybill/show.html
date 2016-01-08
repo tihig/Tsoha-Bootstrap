@@ -12,11 +12,56 @@
   <ul>
      <li>Tilaus ID: </li>
      <li>Tilattu:{{waybill.ordered}}</li>
+     {% for customer in customers%}
+     {% if (customer.id) == (waybill.customer_id) %}
+     <li>Lähettäjä: {{customer.name}}</li>
+     {% else%}
      <li>Lähettäjä: {{waybill.customer_id}}</li>
+     {% endif %}  
+     {% endfor %}
+     {% for receiver in receivers%}
+     {% if (receiver.id) == (waybill.receiver_id) %}
+     <li>Vastaanottaja: {{receiver.name}}</li>
+     {% else%}
      <li>Vastaanottaja: {{waybill.receiver_id}}</li>
-     <li>Määrä: {{waybill.amount}}</li>
+     {% endif %}
+     {% endfor %}
      <li>Saapumispäivä: {{waybill.arrived}}</li>
   </ul>
   <p>Tuotteet:</p>
+  
+ 
+  
+   <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Tuotenimi:</th>
+        <th>Paino:</th>
+        <th>Tilavuus:</th>
+        <th>Kuljetusvaatimus:</th>
+        <th>UN-numero (vakkinumero):</th>
+        <th>Lastausmuoto:</th>
+        <th>Tietoa:</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+       {% for unit in units %}
+       {% if (unit.waybill_id) == (waybill.id)%}
+        <tr>
+           <td>{{unit.productname}}</td>
+          <td>{{unit.weight}}</td>
+          <td>{{unit.velocity}}</td>
+          <td>{{unit.demand}}</td>
+          <td>{{unit.un_number}}</td>
+          <td>{{unit.loading_format}}</td>
+          <td>{{unit.info}}</td>
+         <td><a href="{{base_path}}/waybill/{{unit.id}}/destroyunit" class="btn btn-danger" >Poista</a></td>
+        </tr>
+       {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
 
 {% endblock %}

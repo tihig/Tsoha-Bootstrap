@@ -19,7 +19,6 @@
     <div class="form-group">   
               <label>Vastaanottaja</label>
               <select name="customer_id" class="form-control">
-                 <option></option>
                   {% for customer in customers %}
                     <option value="{{customer.id}}">{{customer.name}}</option>
                      {% else %}
@@ -28,9 +27,6 @@
                 </select>
               
             </div>
- <div class="form-group">
-      <a href="{{base_path}}/customer/new" class="btn btn-success">Uusi asiakas</a>
-    </div>
 
     <!--- Joku valintalistaus tähän -->
        <div class="form-group">   
@@ -44,9 +40,6 @@
                 </select>
              
             </div>
-     <div class="form-group">
-         <a href="{{base_path}}/receiver/new" class="btn btn-success">Uusi vastaanottaja</a>
-    </div>
     
      <div class="form-group">
       <label>Saapumispvm (muodossa: VVVV-KK-PP)</label>

@@ -19,5 +19,10 @@ class UserController extends BaseController{
       Redirect::to('/', array('message' => 'Tervetuloa takaisin ' . $user->name . '!'));
     }
   }
+   public static function logout(){
+      Kint::trace();
+    $_SESSION['user'] = null;
+    Redirect::to('/login.html', array('message' => 'Olet kirjautunut ulos!'));
+  }
 }
 

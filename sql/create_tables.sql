@@ -1,8 +1,9 @@
 -- Lisää CREATE TABLE lauseet tähän tiedostoon
+--address varchar(60) NOT NULL, en saanut tungettua customeriin
 CREATE TABLE Customer(
  id SERIAL PRIMARY KEY,
  name varchar(50) NOT NULL,
- phone INTEGER NOT NULL,
+ phone varchar(30) NOT NULL,
  e_mail varchar(50) NOT NULL
 );
 
@@ -10,7 +11,7 @@ CREATE TABLE Receiver(
  id SERIAL PRIMARY KEY,
  name varchar(50) NOT NULL,
  address varchar(60) NOT NULL,
- phone INTEGER NOT NULL,
+ phone varchar(30) NOT NULL,
  e_mail varchar(50)
 );
 
@@ -36,21 +37,7 @@ CREATE TABLE Waybill(
  id SERIAL PRIMARY KEY,
  customer_id INTEGER REFERENCES Customer(id),
  receiver_id INTEGER REFERENCES Receiver(id),
- amount INTEGER,
  ordered DATE,
  arrived DATE
 );
 
-CREATE TABLE Car(
- id SERIAL PRIMARY KEY,
- driver varchar(50),
- licence varchar(20),
- cartype varchar(50)
-);
-
-CREATE TABLE Transport(
- car_id INTEGER PRIMARY KEY REFERENCES Car(id),
- waybill_id INTEGER REFERENCES Waybill(id),
- handler_id INTEGER REFERENCES Worker(id),
- city varchar(50) NOT NULL
-);

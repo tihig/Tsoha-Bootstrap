@@ -2,7 +2,7 @@
 
 class waybill extends BaseModel{
    
-   public  $id, $customer_id, $receiver_id,$amount, $ordered, $arrived;
+   public  $id, $customer_id, $receiver_id, $ordered, $arrived;
 
    public function __construct($attributes){
     parent::__construct($attributes);
@@ -10,7 +10,7 @@ class waybill extends BaseModel{
    }
 
    public static function all(){
-    $query = DB::connection()->prepare('SELECT * FROM Waybill');
+    $query = DB::connection()->prepare('SELECT * FROM Waybill;');
     $query->execute();
     $rows = $query->fetchAll();
     $waybills = array();
@@ -21,7 +21,6 @@ class waybill extends BaseModel{
         'id' => $row['id'],
         'customer_id' => $row['customer_id'],
         'receiver_id' => $row['receiver_id'],
-        'amount' => $row['amount'],
         'ordered' => $row['ordered'],
         'arrived' => $row['arrived']
       ));
@@ -41,7 +40,6 @@ class waybill extends BaseModel{
         'id' => $row['id'],
         'customer_id' => $row['customer_id'],
         'receiver_id' => $row['receiver_id'],
-        'amount' => $row['amount'],
         'ordered' => $row['ordered'],
         'arrived' => $row['arrived']
       ));
@@ -63,7 +61,6 @@ class waybill extends BaseModel{
         'id' => $row['id'],
         'customer_id' => $row['customer_id'],
         'receiver_id' => $row['receiver_id'],
-        'amount' => $row['amount'],
         'ordered' => $row['ordered'],
         'arrived' => $row['arrived']
       ));
@@ -84,14 +81,14 @@ class waybill extends BaseModel{
   }
   
     public function update(){
-       // Jostaan syystä POST ei pelaa???
-    $query = DB::connection()->prepare('UPDATE Waybill (customer_id, receiver_id, arrived) VALUES (:customer_id, :receiver_id, :arrived) RETURNING id');
-    $query->execute(array('customer_id' => $this->customer_id, 'receiver_id' => $this->receiver_id, 'arrived' => $this->arrived));
+       // JUPDATE:ssa joku vika??
+    $query = DB::connection()->prepare('UPDATE Waybill (id, customer_id, receiver_id, arrived) VALUES (:id, :customer_id, :receiver_id, :arrived) RETURNING id;');
+    $query->execute(array('id' => $this->id,'customer_id' => $this->customer_id, 'receiver_id' => $this->receiver_id, 'arrived' => $this->arrived));
     $row = $query->fetch();
     
-    Kint::trace();
-    Kint::dump($row);
-//$this->id = $row['id'];
+    /*Kint::trace();
+    Kint::dump($row);*/
+    $this->id = $row['id'];
   }
   
     public function delete($id){

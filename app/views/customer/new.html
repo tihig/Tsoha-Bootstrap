@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Lisää uusi vastaanottaja</h1>
+  <h1>Lisää uusi lähettäjä (asiakas)</h1>
   <p>Tässä voit lisätä uuden vastaanottajan.</p>
   
     {% if errors %}
@@ -14,20 +14,15 @@
     </div>
   {% endif %}
  
- <form role="form"  action="{{base_path}}/receiver" method="POST">
+ <form role="form"  action="{{base_path}}/customer" method="POST">
   <div class="form-group">
       <label>Nimi</label>
       <input name="name" class="form-control" type="text">
     </div>
-
-    <div class="form-group">
-      <label>Osoite</label>
-      <input name="address" class="form-control" type="text">
-    </div>
     
      <div class="form-group">
       <label>Puhelin</label>
-      <input name="number" class="form-control" type="text">
+      <input name="number" class="form-control" type="number">
     </div>
     
     <div class="form-group">

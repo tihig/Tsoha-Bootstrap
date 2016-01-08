@@ -1,7 +1,79 @@
 {% extends "base.html" %}
-{% import "macros/forms.html" as forms %}
 {% block content %}
-  <h1>Tee uusi kuljetustilaus</h1>
-  <p>Tässä pitäisi listautua asiakkaat:</p>
+  <h1>Muokkaa rahtikirjaa</h1>
   
+    {% if errors %}
+    <div class="alert alert-danger">
+       <ul>
+          {% for error in errors %}
+          <li>{{error}}</li>
+          {% endfor %}
+      </ul>
+      
+    </div>
+  {% endif %}
+  
+ <form role="form"   method="POST">
+    
+    <div class="form-group">
+      <label>RahtikirjaID</label>
+      <input name="id" class="form-control" value="{{waybill.id}}" readonly>
+    </div>
+    
+    <div class="form-group">   
+              <label>Lähettäjä</label>
+              <select name="customer_id" class="form-control">
+                 {% for customer in customers %}
+                 {% if (customer.id) == (waybill.customer_id)%}
+                 <option value="{{customer.id}}">{{customer.name}}</option>
+                 {% endif %}
+                 {% endfor %}
+                  {% for customer in customers %}
+                     {% if (customer.id) == (waybill.customer_id)%}
+                     {% else %}
+                      <option value="{{customer.id}}">{{customer.name}}</option>
+                      {% endif %}
+                     {% else %}
+                    <option value="">Asiakkaita ei löydy</option>
+                  {% endfor %}
+                </select>
+              
+            </div>
+ <div class="form-group">
+      <a href="{{base_path}}/customer/new" class="btn btn-success">Uusi asiakas</a>
+    </div>
+
+
+       <div class="form-group">   
+              <label>Vastaanottaja</label>
+              <select name="receiver_id" class="form-control">
+                 {% for receiver in receivers %}
+                 {% if (receiver.id) == (waybill.receiver_id)%}
+                 <option value="{{receiver.id}}">{{receiver.name}}</option>
+                 {% endif %}
+                 {% endfor %}
+                  {% for receiver in receivers %}
+                     {% if (receiver.id) == (waybill.receiver_id)%}
+                     {% else %}
+                        <option value="{{receiver.id}}">{{receiver.name}}</option>
+                     {% endif %}
+                     {% else %}
+                    <option value="">Vastaanottajia ei löydy</option>
+                  {% endfor %}
+                </select>
+             
+            </div>
+     <div class="form-group">
+         <a href="{{base_path}}/receiver/new" class="btn btn-success">Uusi vastaanottaja</a>
+    </div>
+    
+     <div class="form-group">
+      <label>Saapumispvm (muodossa: VVVV-KK-PP)</label>
+      <input name="arrived" class="form-control" value="{{waybill.arrived}}">
+    </div>
+    
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+  </form>
 {% endblock %}

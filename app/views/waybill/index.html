@@ -12,7 +12,6 @@
         <th>Tilattu:</th>
         <th>Lähettäjä:</th>
         <th>Vastaanottaja:</th>
-        <th>Määrä:</th>
         <th>Saapumispäivä:</th>
         <th></th>
       </tr>
@@ -20,15 +19,24 @@
 
     <tbody>
       {% for waybill in waybills %}
+      
         <tr>
           <td><a href="{{base_path}}/waybill/{{waybill.id}}/show">{{waybill.id}}</td>
           <td>{{waybill.ordered}}</td>
-          <td>{{waybill.customer_id}}</td>
-          <td>{{waybill.receiver_id}}</td>
-          <td>{{waybill.amount}}</td>
+          {% for customer in customers%}
+          {% if (customer.id) == (waybill.customer_id) %}
+          <td>{{customer.name}}</td>
+          {% endif %}
+          {% endfor %}
+           {% for receiver in receivers%}
+          {% if (receiver.id) == (waybill.receiver_id) %}
+          <td>{{receiver.name}}</td>
+          {% endif %}
+          {% endfor %}
           <td>{{waybill.arrived}}</td>
           <td><a class="btn btn-danger" href="{{base_path}}/waybill/{{waybill.id}}/destroy">Poista</a></td>
          </tr>
+                
       {% endfor %}
     </tbody>
   </table>

@@ -26,5 +26,15 @@ class receiver extends BaseModel{
 
     return $receivers;
   }
+  
+    public function delete($id){
+    $query = DB::connection()->prepare('DELETE FROM Receiver WHERE id= :id RETURNING id');
+    $query->execute(array('id'=> $id));
+    $row = $query->fetch();
+    
+  
+ 
+   $this->id = $row['id'];
+  }
 
 }
