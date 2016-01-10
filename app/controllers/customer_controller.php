@@ -10,34 +10,24 @@ class CustomerController extends BaseController{
   }
     public static function store(){
     $params = $_POST;
-    Kint::dump($params);
-    /*$attributes = array(
+    //Kint::dump($params);
+    $attributes = array(
         'name' => $params['name'],
         'phone' => $params['phone'],
         'e_mail' => $params['e_mail']
     );
     
    $customer = new customer($attributes);
-   //$errors = $customer->errors();
+   $errors = $customer->errors();
    
-  // if(count($errors) == 0){
+  if(count($errors) == 0){
     $customer->save();
 
-    Redirect::to('/customer', array('message' => 'Asiakas on lisätty onnistuneesti!'));
-  /*}else{
-    $customers = customer::all();
-    $receivers = receiver::all();
-    View::make('waybill/new.html', array('errors' => $errors, 'attributes' => $attributes, 'customers' => $customers, 'receivers' => $receivers));
-  }*/
-    //
+    Redirect::to('/waybill/new', array('message' => 'Asiakas on lisätty onnistuneesti!'));
+  }else{
+    View::make('/customer/new.html', array('errors' => $errors, 'attributes' => $attributes));
   }
-    public static function destroy($id){
-   $customer = new customer(array('id'=> $id));
-   Kint::dump($customer);
-   
-   /*$customer->delete($id);
-   
-   Redirect::to('/customer', array('message'=> 'Lähettäjän poisto onnistui.'));*/
+
   }
   
 }

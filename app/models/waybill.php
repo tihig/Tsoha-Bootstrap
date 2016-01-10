@@ -15,18 +15,18 @@ class waybill extends BaseModel{
     $rows = $query->fetchAll();
     $waybills = array();
 
-
     foreach($rows as $row){
       $waybills[] = new waybill(array(
         'id' => $row['id'],
         'customer_id' => $row['customer_id'],
         'receiver_id' => $row['receiver_id'],
-        'ordered' => $row['ordered'],
         'arrived' => $row['arrived']
       ));
     }
 
+
     return $waybills;
+  
   }
   
   
@@ -80,14 +80,14 @@ class waybill extends BaseModel{
    $this->id = $row['id'];
   }
   
-    public function update(){
+  public function update(){
        // JUPDATE:ssa joku vika??
-    $query = DB::connection()->prepare('UPDATE Waybill (id, customer_id, receiver_id, arrived) VALUES (:id, :customer_id, :receiver_id, :arrived) RETURNING id;');
-    $query->execute(array('id' => $this->id,'customer_id' => $this->customer_id, 'receiver_id' => $this->receiver_id, 'arrived' => $this->arrived));
+    $query = DB::connection()->prepare('INSERT INTO Waybill (customer_id, receiver_id, arrived) VALUES ( :customer_id, :receiver_id, :arrived) RETURNING id');
+    $query->execute(array('customer_id' => $this->customer_id, 'receiver_id' => $this->receiver_id, 'arrived' => $this->arrived, 'id'=> $this->id));
     $row = $query->fetch();
     
-    /*Kint::trace();
-    Kint::dump($row);*/
+    Kint::trace();
+    Kint::dump($row);
     $this->id = $row['id'];
   }
   
@@ -97,8 +97,8 @@ class waybill extends BaseModel{
     $row = $query->fetch();
     
   
-    Kint::dump($row);
-   //$this->id = $row['id'];
+    //Kint::dump($row);
+   $this->id = $row['id'];
   }
   }
 

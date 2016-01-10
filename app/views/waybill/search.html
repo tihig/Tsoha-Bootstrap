@@ -2,8 +2,8 @@
 {% block content %}
   <h1>Etsi</h1>
   
-
-  <form role="form" action="{{base_path}}/waybill">
+<!-- kuuluu method= "POST" sisälle, mutta ei toimi niin otettu pois--> 
+  <form role="form" action="{{base_path}}/waybill" >
      <div class="form-group">
       <label>Etsi rahtikirja ID:llä</label>
       <input name="id" class="form-control" type="number">

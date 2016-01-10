@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
   <h1>Lisää uusi lähettäjä (asiakas)</h1>
-  <p>Tässä voit lisätä uuden vastaanottajan.</p>
   
     {% if errors %}
     <div class="alert alert-danger">
@@ -22,7 +21,7 @@
     
      <div class="form-group">
       <label>Puhelin</label>
-      <input name="number" class="form-control" type="number">
+      <input name="phone" class="form-control" type="text">
     </div>
     
     <div class="form-group">

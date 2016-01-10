@@ -10,37 +10,29 @@ class ReceiverController extends BaseController{
     View::make('receiver/new.html');
   }
   
-   public static function destroy($id){
-   $receiver = new receiver(array('id'=> $id));
-
-   
-   $receiver->delete($id);
-   
-   Redirect::to('/receiver', array('message'=> 'Vastaanottajan poisto onnistui.'));
-  }
-  
     public static function store(){
     $params = $_POST;
-    Kint::dump($params);
-    /*$attributes = array(
+    
+    $attributes = array(
         'name' => $params['name'],
+        'address' => $params['address'],
+        'postcode' => $params['postcode'],
+        'city' => $params['city'],
         'phone' => $params['phone'],
         'e_mail' => $params['e_mail']
     );
     
-   $customer = new customer($attributes);
-   //$errors = $customer->errors();
+   $receiver = new receiver($attributes);
+   $errors = $receiver->errors();
    
-  // if(count($errors) == 0){
-    $customer->save();
+  if(count($errors) == 0){
+    $receiver->save();
 
-    Redirect::to('/customer', array('message' => 'Asiakas on lisätty onnistuneesti!'));
-  /*}else{
-    $customers = customer::all();
-    $receivers = receiver::all();
-    View::make('waybill/new.html', array('errors' => $errors, 'attributes' => $attributes, 'customers' => $customers, 'receivers' => $receivers));
-  }*/
-    //
+    Redirect::to('/waybill/new', array('message' => 'Vastaanottaja on lisätty onnistuneesti!'));
+  }else{
+
+    View::make('receiver/new.html', array('errors' => $errors, 'attributes' => $attributes));
+  }
   }
 
 }

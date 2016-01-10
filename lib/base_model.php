@@ -19,6 +19,10 @@
     public function validate_waybill(){
        $errors = array();
        
+       $errors_customer_empty = $this->validate_empty($this->customer_id);
+       $errors_receiver_empty = $this->validate_empty($this->receiver_id);
+       $errors_date_empty = $this->validate_empty($this->arrived);
+       
        $errors_customer = $this->validate_number($this->customer_id);
        $errors_receiver = $this->validate_number($this->receiver_id);
        $errors_date = $this->validate_date($this->arrived);
@@ -27,20 +31,55 @@
        $errors = array_merge($errors, $errors_receiver);
        $errors = array_merge($errors, $errors_date);
        
+        $errors = array_merge($errors, $errors_customer_empty);
+       $errors = array_merge($errors, $errors_receiver_empty);
+       $errors = array_merge($errors, $errors_date_empty);
+       
        return $errors;
        
     }
     //Tulevat jos aikaa jää
     
     public function validate_customer(){
+          $errors = array();
+       
+       $errors_name_empty = $this->validate_empty($this->name);
+       $errors_phone_empty = $this->validate_empty($this->phone);
+       $errors_e_mail_empty = $this->validate_empty($this->e_mail);
+       
+       $errors_name = $this->validate_string($this->name);
+       $errors_phone = $this->validate_phone($this->phone);
+       $errors_e_mail = $this->validate_email($this->e_mail);
+       
+       $errors = array_merge($errors, $errors_name_empty);
+       $errors = array_merge($errors, $errors_phone_empty);
+       $errors = array_merge($errors, $errors_e_mail_empty);
+       
+       $errors = array_merge($errors, $errors_name);
+       $errors = array_merge($errors, $errors_phone);
+       $errors = array_merge($errors, $errors_e_mail);
+       
+       return $errors;
 
     }
     public function validate_receiver(){
+        $errors = array();
+        
+        //errors name, phone, e_mail
+        $errors_npe = $this->validate_customer();
+        
+        $errors_address = $this->validate_empty($this->address);
+        $errors_postcode = $this->validate_postcode($this->postcode);
+        $errors_city = $this->validate_city($this->city);
+        
+       $errors = array_merge($errors, $errors_npe);
+       $errors = array_merge($errors, $errors_address);
        
+       return $errors;
     }
     
-    /*public function validate_unit(){
-          $errors = array();
+    public function validate_unit(){
+       $errors = array();
        //validate_strings
        $errors_productname = $this->validate_string($this->productname);
        $errors_demand = $this->validate_string($this->demand);
@@ -50,7 +89,7 @@
        //validate_ints
        $errors_weight = $this->validate_int($this->weight);
        $errors_velocity = $this->validate_int($this->velocity);
-       $errors_un_number = $this->validate_($this->loading_format);
+       $errors_un_number = $this->validate_int($this->un_number);
        
        
        $errors = array_merge($errors, $errors_customer);
@@ -58,7 +97,7 @@
        $errors = array_merge($errors, $errors_date);
        
        return $errors;
-    }*/
+    }
     // yleisvalidaattorit
     public function validate_empty($val){
         $errors = array();
@@ -69,9 +108,7 @@
     }
     
     public function validate_number($int){
-       //Tarkistetaan onko tyhjä
-     $errors = $this->validate_empty($int);
-     
+      $errors = array();
      if(is_numeric($int) == FALSE){
         $errors[] = 'Arvo: ' . $int . ' ei ole luku!';
      }
@@ -80,8 +117,7 @@
     }
     
      public function validate_string($string){
-        $errors = array_merge($errors, $this->validate_empty($date));
-     
+      $errors = array();
         if(is_string($string) == FALSE){
          $errors[] = 'Arvo ' . $string . ' ei ole merkkijono!';
         }
@@ -90,21 +126,16 @@
     }
     
     public function validate_length($val,$length){
-      $errors = array_merge($errors, $this->validate_empty($date));
-        
-     
+      $errors = array();
      if(strlen($val) >= $length){
-        $errors[] = 'Tämä ei ole tarpeeksi pitkä!';
+        $errors[] = 'Arvo '. $val . ' ei ole tarpeeksi pitkä!';
      }
      
      return $errors;
     }
     
     public function validate_date($date){
-       //Tarkistetaan onko tyhjä
-       
-        $errors = $this->validate_empty($date);
-        
+         $errors = array();
         try{   
            $date = new DateTime($date);
         }  catch (Exception $e){
@@ -112,34 +143,57 @@
            $errors[] = 'Arvo '. $date . ' ole aikamuodossa!';
         }
         
-        
-     /*   $year = substr($date, 0, 4);
-        $month = substr($date, 5, 2);
-        $day = substr($date, 8, 2);
-     
-     if(is_numeric($year) == FALSE){
-        $errors[] = 'Vuosi ei ole luku';
-     }
-     if(is_numeric($month) == FALSE){
-        $errors[] = 'Kuukausi ei ole luku';
-     }
-     if(is_numeric($day) == FALSE){
-        $errors[] = 'Päivä ei ole luku';
-     }
-     $year = (int) $year;
-     $month = (int) $month;
-     $day = (int) $day;
-     
-     if($month > 12 || $month < 1){
-        $errors[] = 'Kuukausi on väärä!';
-     }
-  
-       */      
      return $errors;
+    }
+    // attribuutteihin liittyvät validaattorit
+    public function validate_email($email){
+        $errors = array();
+        if(!strpos($email, '@')){
+            $errors[] = 'Sähköpostista puuttuu @-merkki!';
+        }
+       if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+          $errors[] = 'Sähköposti ei ole oikeassa muodossa!';
+       }
+       return $errors;
+       
+    }
+    
+     public function validate_phone($phone){
+          $errors = array();
+          
+          $firstnumber = substr($phone, 0, 1);
+          
+          if(!is_numeric($firstnumber)){
+             if($firstnumber != '+'){
+              $errors[] = 'Ensimmäinen merkki puhelinnumerossa vain numero tai + !';
+             }
+          }
+          
+          if(!is_numeric($phone)){
+             $errors[] = 'Puhelinnumeron (ilman +- merkkiä) tulee sisältää vain numeroita!';
+          }
+          return $errors;
+       
+    }
+  
+    public function validate_postcode($postcode){
+       $errors = array();
+      if(!is_numeric($postcode)|| strlen($postcode) >= 6){
+        $errors[] = 'Arvo: ' . $postcode . ' ei ole postinumeromuodossa!';
+         }
+       
+       return $errors;
+    }
+    
+    public function validate_city($city){
+       $errors = $this->validate_empty($city);
+       
+        array_merge($errors, $this->validate_string($city));
+        
+        return $errors;
     }
 
     public function errors(){
-      // Lisätään $errors muuttujaan kaikki virheilmoitukset taulukkona
       $errors = array();
 
       foreach($this->validators as $validator){

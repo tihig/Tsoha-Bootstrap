@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
   <h1>Tee uusi kuljetustilaus</h1>
-  <p>Tässä pitäisi listautua asiakkaat:</p>
   
     {% if errors %}
     <div class="alert alert-danger">
@@ -25,8 +24,12 @@
                     <option value="">Asiakkaita ei löydy</option>
                   {% endfor %}
                 </select>
-              
+              <div>
+                 <a href="{{base_path}}/customer/new" class="btn btn-success">Uusi asiakas</a>
+              </div>
             </div>
+
+ 
 
     <!--- Joku valintalistaus tähän -->
        <div class="form-group">   
@@ -38,9 +41,12 @@
                     <option value="">Vastaanottajia ei löydy</option>
                   {% endfor %}
                 </select>
-             
+              <div>
+               <a href="{{base_path}}/receiver/new" class="btn btn-success">Uusi vastaanottaja</a>
+              </div>
             </div>
-    
+
+       
      <div class="form-group">
       <label>Saapumispvm (muodossa: VVVV-KK-PP)</label>
       <input name="arrived" class="form-control" type="date">

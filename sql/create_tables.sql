@@ -11,6 +11,8 @@ CREATE TABLE Receiver(
  id SERIAL PRIMARY KEY,
  name varchar(50) NOT NULL,
  address varchar(60) NOT NULL,
+ postcode varchar(50),
+ city varchar(50),
  phone varchar(30) NOT NULL,
  e_mail varchar(50)
 );

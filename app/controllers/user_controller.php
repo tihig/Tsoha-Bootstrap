@@ -3,7 +3,6 @@
 class UserController extends BaseController{
    
   public static function login(){
-     //jostaan syystä redirectaa itseensä?? O__O
       View::make('user/login.html');
   }
   public static function handle_login(){
@@ -22,7 +21,7 @@ class UserController extends BaseController{
    public static function logout(){
       Kint::trace();
     $_SESSION['user'] = null;
-    Redirect::to('/login.html', array('message' => 'Olet kirjautunut ulos!'));
+    Redirect::to('/login', array('message' => 'Olet kirjautunut ulos!'));
   }
 }
 

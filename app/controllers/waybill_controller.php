@@ -23,7 +23,12 @@ class WaybillController extends BaseController{
   }
    public static function find($id){
     $waybill = waybill::find($id);
-    View::make('waybill/index.html', array('waybill' => $waybill));
+    Kint::dump($waybill);
+    /*if($waybill != null){
+       $this->show($id);
+    }else{
+        View::make('waybill/search.html');
+    }*/
   }
   
   public static function search(){
@@ -36,10 +41,10 @@ class WaybillController extends BaseController{
   }
 
   
-  public static function update($id){
+  public static function update(){
      $params = $_POST;
-     
-     $attributes = array(
+     Kint::dump($params);
+     /*$attributes = array(
          'id' =>$params['id'],
          'customer_id' => $params['customer_id'],
          'receiver_id' => $params['receiver_id'],
@@ -54,6 +59,7 @@ class WaybillController extends BaseController{
         $receivers = receiver::all();
         View::make('waybill/edit.html', array('errors' => $errors, 'waybill' => $waybill, 'customers' => $customers, 'receivers' => $receivers));
      }  else {
+        //Kint::dump($waybill);
         $waybill->update();
         Redirect::to('/waybill/', $waybill->id, array('message' => 'Rahtikirjan muokkaus onnistui.'));
      }
@@ -64,7 +70,7 @@ class WaybillController extends BaseController{
    
    $waybill->delete($id);
    
-   Redirect::to('/waybill', array('message'=> 'Rahtikirjan poisto onnistui.'));
+   Redirect::to('/waybill', array('message'=> 'Rahtikirjan poisto onnistui.'));*/
   }
   
   public static function store(){
@@ -96,7 +102,7 @@ class WaybillController extends BaseController{
     $receivers = receiver::all();
     View::make('/waybill/new.html', array('customers' => $customers, 'receivers' => $receivers));
   }
-  //$waybill_id, $productname, $weight, $velocity,$demand, $un_number, $loading_format, $info;
+
   public static function storeUnit(){
       $params = $_POST;
       //Kint::dump($params);
@@ -113,24 +119,57 @@ class WaybillController extends BaseController{
     );
     
    $unit = new unit($attributes);
-   //$errors = $unit->errors();
+   $errors = $unit->errors();
    
-  //if(count($errors) == 0){
+  if(count($errors) == 0){
     $unit->save();
 
     Redirect::to('/waybill/' . $unit->waybill_id .'/show', array('message' => 'Uusi tuote on lisätty onnistuneesti!'));
-  /*}else{
+  }else{
    
     $waybill = $this->find($unit->waybill_id);
     View::make('waybill/' .$unit->waybill_id. 'unit.html', array('errors' => $errors, 'attributes' => $attributes, 'waybill' => $waybill));
   }
-    //Kint::dump($params);*/
   }
   
  public static function createUnit($id){
     $waybill = waybill::find($id);
     View::make('waybill/unit.html', array('waybill' => $waybill));
   }
+  
+   public static function editUnit($id){
+    $unit = unit::find($id);
+    View::make('waybill/unit_edit.html', array('unit' => $unit));
+  }
+  public static function updateUnit($id){
+    $params = $_POST;
+    
+    Kint::dump($params);
+     
+    /* $attributes = array(
+         'id' => $params['id'],
+        'waybill_id' => $params['waybill_id'],
+        'productname' => $params['productname'],
+        'weight' => $params['weight'],
+        'velocity' => $params['velocity'],
+        'demand' => $params['demand'],
+        'un_number' => $params['un_number'],
+        'loading_format' => $params['loading_format'],
+        'info' => $params['info']
+     );
+     
+     $unit = new unit($attributes);
+     $errors = $unit->errors();
+     
+    if(count($errors)>0){
+        View::make('waybill/'. $unit->waybill_id .'unit_edit.html', array('errors' => $errors, 'unit'=> $unit));
+     }  else {
+        $unit->update();
+        Redirect::to('/waybill/new.html', $unit->id, array('message' => 'Tuotteen muokkaus onnistui.'));
+     }*/
+  }
+  
+  
   
    public static function destroyUnit($id){
    $unit = new unit(array('id'=> $id));

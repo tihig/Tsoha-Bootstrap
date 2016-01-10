@@ -7,6 +7,7 @@ class customer extends BaseModel{
 
    public function __construct($attributes){
     parent::__construct($attributes);
+    $this->validators = array('validate_customer');
    }
     public static function all(){
     $query = DB::connection()->prepare('SELECT * FROM Customer');
@@ -45,7 +46,7 @@ class customer extends BaseModel{
     
   }
      public function save(){
-    $query = DB::connection()->prepare('INSERT INTO Customer (name, phone, e_mail) VALUES ( :name, :address, :phone, :e_mail) RETURNING id');
+    $query = DB::connection()->prepare('INSERT INTO Customer (name, phone, e_mail) VALUES ( :name, :phone, :e_mail) RETURNING id');
     $query->execute(array('name' => $this->name, 'phone' => $this->phone, 'e_mail' => $this->e_mail));
     $row = $query->fetch();
     

@@ -1,16 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
   <h1>Tallennetut vastaanottajat</h1>
-<!-- Jos on aikaa, niin lisään hyväksy/hylkää- nappulat -->
-  <p>
-    <a href="{{base_path}}/receiver/new" class="btn btn-success">Uusi vastaanottaja</a>
-  </p>
+
   <table class="table table-striped table-bordered">
     <thead>
       <tr>
         <th>ID:</th>
         <th>Nimi:</th>
         <th>Osoite:</th>
+        <th>Postinro:</th>
+        <th>Kaupunki:</th>
         <th>Puh:</th>
         <th>Email:</th>
         <th></th>
@@ -23,9 +22,11 @@
           <td>{{receiver.id}}</td>
           <td>{{receiver.name}}</td>
           <td>{{receiver.address}}</td>
+          <td>{{receiver.postcode}}</td>
+          <td>{{receiver.city}}</td>
           <td>{{receiver.phone}}</td>
           <td>{{receiver.e_mail}}</td>
-          <td><a href="{{base_path}}/receiver/{{receiver.id}}/destroy" class="btn btn-danger" >Poista</a></td>
+          <td><a href="" class="btn btn-danger" >Poista</a></td>
         </tr>
       {% endfor %}
     </tbody>

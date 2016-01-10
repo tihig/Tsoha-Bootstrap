@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Muokkaa tuotetta {{unit.productname}}</h1>
+  
+    {% if errors %}
+    <div class="alert alert-danger">
+       <ul>
+          {% for error in errors %}
+          <li>{{error}}</li>
+          {% endfor %}
+      </ul>
+      
+    </div>
+  {% endif %}
+  <!-- $waybill_id, $productname, $weight, $velocity,$demand, $un_number, $loading_format, $info;-->
+ 
+ <form role="form"  action="{{base_path}}/waybill/unit" method="POST">
+    
+    <div class="form-group">
+      <label>Tuote ID</label>
+      <input name="id" class="form-control" value="{{unit.id}}" readonly>
+    </div>
+    
+     <div class="form-group">
+      <label>Rahtikirja ID</label>
+      <input name="waybill_id" class="form-control" value="{{unit.waybill_id}}" readonly>
+    </div>
+    
+     <div class="form-group">
+      <label>Tuotenimi</label>
+      <input name="productname" class="form-control" value="{{unit.productname}}" type="text">
+    </div>
+    
+         <div class="form-group">
+      <label>Paino</label>
+      <input name="weight" class="form-control" value="{{unit.weight}}" type="number">
+    </div>
+    
+         <div class="form-group">
+      <label>Tilavuus</label>
+      <input name="velocity" class="form-control" value="{{unit.velocity}}" type="number">
+    </div>
+    
+      <div class="form-group">
+      <label>Kuljetusvaatimus</label>
+      <input name="demand" class="form-control" value="{{unit.demand}}" type="text">
+    </div>
+    
+    <div class="form-group">
+      <label>UN-numero (vakkinumero)</label>
+      <input name="un_number" class="form-control" value="{{unit.un_number}}" type="number" >
+    </div>
+    
+    <div class="form-group">
+      <label>Lastausmuoto</label>
+      <input name="loading_format" class="form-control" value="{{unit.loading_format}}" type="text">
+    </div>
+    
+    <div class="form-group">
+      <label>Tietoa</label>
+      <input name="info" class="form-control" value="{{unit.info}}" type="text">
+    </div>
+    
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+  </form>
+{% endblock %}

@@ -34,15 +34,13 @@
   WaybillController::destroy($id);
   });
   
-  $routes->get('/waybill/search','check_logged_in', function() {
+    $routes->get('/waybill/search', function() {
    WaybillController::search();
   });
-  $routes->get('/waybill/found/:id', function($id) {
-   WaybillController::find($id);
-  });
-
- $routes->get('/waybill/found/:id', function($id) {
-   WaybillController::find($id);
+  
+  $routes->post('/waybill/search', function($id) {
+     //Ei toimi :(((
+     //WaybillController::find($id);
   });
   
   $routes->post('/waybill', function(){
@@ -58,10 +56,18 @@
    WaybillController::show($id);
   });
   
+   $routes->post('/waybill/:id/unit_edit', function($id){
+  WaybillController::updateUnit($id);
+  });
+  
+   $routes->get('/waybill/:id/unit_edit', function($id) {
+   WaybillController::editUnit($id);
+  });
+  
    $routes->post('/waybill/unit', function() {
    WaybillController::storeUnit();
   });
-  
+   
    $routes->get('/waybill/:id/unit', function($id) {
    WaybillController::createUnit($id);
   });
@@ -75,27 +81,20 @@
   });
   
   //Vastaanottajat
-  $routes->get('/receiver/:id/destroy', function($id){
-     ReceiverController::destroy($id);
-  });
      $routes->post('/receiver', function(){
         ReceiverController::store();
   });
   
-   $routes->get('/receiver/new','check_logged_in', function() {
+   $routes->get('/receiver/new', function() {
      ReceiverController::create();
   });
   
   
-  $routes->get('/receiver','check_logged_in', function() {
+  $routes->get('/receiver', 'check_logged_in', function() {
      ReceiverController::index();
   });
   
   // Lähettäjät
-  
-   $routes->get('/customer/:id/destroy', function($id){
-      CustomerController::destroy($id);
-  });
   
    $routes->post('/customer', function(){
       CustomerController::store();
@@ -105,7 +104,7 @@
      CustomerController::create();
   });
   
- $routes->get('/customer', 'check_logged_in', function() {
+ $routes->get('/customer','check_logged_in',  function() {
     CustomerController::index();
   });
   
@@ -114,12 +113,9 @@
  $routes->get('/waybill', 'check_logged_in', function() {
     WaybillController::index();
   });
+
   
   $routes->get('/', 'check_logged_in', function() {
-    HelloWorldController::listWaybills();
-  });
-  
-  $routes->get('/', 'check_logged_in',function() {
     HelloWorldController::index();
   });
 
