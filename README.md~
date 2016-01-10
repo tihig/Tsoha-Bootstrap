@@ -8,7 +8,11 @@ Yleisiä linkkejä:
 ## Rahtikirjojenkäsittely sivusto
 
 Tämän sivuston aiheena on rahtikirjojen muokkaamiseen ja tallentamiseen käytettävä verkkotyökalu, joka on tarkoitettu logistiikka-alan yrityksille.
-Tuotteiden kuljettamista tarvistevat asiakkaat syöttävät sivustolle tarvittavat osoitteet ja tiedot tuotteista niiden kuljetusta varten. Nämä tallentuvat sivustolle tilauksina, joita pystyy myöhemmin asiakkaan omilla tunnuksilla tarkastelemaan. Asiakkaille on tallennettu valmiiksi lähtö- ja saapumisosoitteita, jotka kuuluvat heidän vakioasiakkaille.
-Kuljetustilauksia hallinnoiva tallennushenkilö kuljetusyrityksen puolelta pystyy muokkaamaan ja tallentamaan tilauksia. Tilaukset hyväksytään tai hylätään kuljetettavaksi. Jos ne hyväksytään, tulee niistä rahtikirjoja, jolloin ne voidaan lajitella oikeille kuljettajille.
-Kuljettajat pystyvät tarkastelemaan omia kuljetuksiaan sekä merkitsemään kuljetetut rahdit sivustolle. 
+Sivustolle on mahdollista tallentaa rahtikirjoja. Rahtikirjatallennuksen yhteydessä tallennetaan sivustolle sekä lähettäjän että vastaanottajan tiedot. Niitä voidaan käyttää useissa muissakin rahtikirjoissa, joten saman lähettäjän tai vastaanottajan tietoja ei tarvitse moneen kertaan näppäillä sivustolle. 
+Rahtikirjoihin voidaan lisätä ja poistaa tuotteita. Tuotteisiin voidaan kirjoittaa erityiset kuljetusvaatimukset sekä mahdolliset vakkitiedot (vaarallisten aineiden kuljetustiedot) UN- numerolla ilmoitettuna. 
+
+## Testitunnukset
+
+Käyttäjätunnus: testi
+Ss: testi123
 
